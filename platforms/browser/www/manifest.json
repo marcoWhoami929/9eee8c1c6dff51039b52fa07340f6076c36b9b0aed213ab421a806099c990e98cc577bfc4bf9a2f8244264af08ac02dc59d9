@@ -1,0 +1,12 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "RENTAApp",
+  "short_name": "RENTAApp",
+  "version": "com.rentabilidad.app",
+  "description": "Finalización de entregas por el agente.",
+  "author": "Marco Antonio López Pérez",
+  "icons": [],
+  "orientation": "portrait",
+  "start_url": "index.html"
+}

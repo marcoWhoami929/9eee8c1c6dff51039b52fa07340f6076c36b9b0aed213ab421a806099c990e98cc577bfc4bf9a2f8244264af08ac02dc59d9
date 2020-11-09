@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+           <!--ESTILOS DE APLICACIÓN-->
+        
+        <link rel="stylesheet" href="css/lateral.css">
+        <!--<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">-->
+        <link rel="stylesheet" href="css/all.min.css">
+        <link rel="stylesheet" href="css/animate.css">
+        <link rel="stylesheet" href="css/footer.css">
+        <link rel="stylesheet" href="css/estilosVistas.css">
+        <link rel="stylesheet" href="css/style.css">
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
+        </style>
+        <!--ESTILOS DE APLICACIÓN-->
+        <script type="text/javascript">
+         var url = window.location.pathname;
+         var filename = url.substring(url.lastIndexOf('/') + 1);
+          if (localStorage.login == "true" && filename == 'index.html') {
+             window.location.href = "inicio.html";
+         } else if (localStorage.login == null) {
+             window.location.href = "index.html";
+         } else if (localStorage.login == "false" && filename != 'index.html') {
+             window.location.href = "index.html";
+         }
+         </script>
+
+        <title>RENTAApp</title>
+    </head>
+    <body>
+     <header>
+          <div class="menu_bar">
+            <a href="#" class="bt-menu"><img src="img/logo.png" width="10%"><span><i class="fas fa-bars fa-1x"></i></span></a>
+          </div>
+
+          <nav>
+            <ul style="background:white;">
+             <li></li>
+            </ul>
+            <ul class="contenedorAccesos">
+              <li><a href="#"></a></li>
+              <li><a class="btnInicio"><i class="fas fa-home"></i>Tablero</a></li>
+              <li><a  class="btnEntregasPendientes"><i class="fas fa-boxes"></i>Mis Entregas</a></li>
+              <li><a  class="btnEntregasFinalizadas"><i class="fas fa-handshake"></i>Finalizadas</a></li>
+             
+            </ul>
+          </nav>
+        </header>
+        
+         <div class="container">
+          <a href="inicio.html"><button class="btn btn-circle">
+            <div class="ripple-container">
+                <span class="ripple-effect"></span>
+            </div>
+          <i class="fas fa-arrow-left"></i>
+        </button></a>
+        </div>
+       
+         <div class="contenedorVista">
+
+         <center><h3 id="titulos-container">Entregas Finalizadas</h3></center>
+         <table>
+            <caption></caption>
+            <thead>
+              <tr>
+                <th scope="col">Account</th>
+                <th scope="col">Due Date</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Period</th>
+              </tr>
+            </thead>
+            <tbody id="tableDetailDeliveryFinish">
+            
+            </tbody>
+          </table>
+
+        </div>
+   
+          <!--LIBRERIAS DE JAVASCRIPT PARA FUNCIONAMIENTO DE APLICACIÓN-->
+        <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+
+        <script type="text/javascript" src="js/index.js"></script>
+       
+        <script type="text/javascript" src="js/api.js"></script>
+        <script type="text/javascript" src="js/all.min.js"></script>
+        <script type="text/javascript" src="js/sweetalert.min.js"></script>
+        <script type="text/javascript">
+          $(document).ready(function(){
+            var json = localStorage.listaEntregasFinalizadas;
+            var detalle = JSON.parse(json);
+             $("#tableDetailDeliveryFinish").html("");
+                  $("#fila").html("");
+                  for (var x=0; x < detalle.length; x++) {
+
+                    var fila = `<tr id="fila"><td data-label="Id">`+detalle[x]["id"]+`</td><td data-label="Fecha">`+detalle[x]["fechaCreada"]+`</td><td data-label="Monto">$ `+detalle[x]["montoTotal"]+`</td><td data-label="Ruta">`+detalle[x]["tipoRuta"]+`</td><td data-label="Unidad">`+detalle[x]["unidad"]+`</td><td data-label="Detalle"><button class="btn btn-circle-view btnDetailDelivery" id="`+detalle[x]["id"]+`">
+            <div class="ripple-container">
+                <span class="ripple-effect"></span>
+            </div>
+          <i class="fas fa-eye"></i>
+        </button></td></tr>`;
+                      $("#tableDetailDeliveryFinish").append(fila);
+                   }
+              });
+        </script>
+        
+    </body>
+</html>

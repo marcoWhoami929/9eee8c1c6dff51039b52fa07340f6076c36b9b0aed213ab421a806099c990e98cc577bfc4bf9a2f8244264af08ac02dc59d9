@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+           <!--ESTILOS DE APLICACACIÓN-->
+        
+        <link rel="stylesheet" href="css/lateral.css">
+        <!--<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">-->
+        <link rel="stylesheet" href="css/all.min.css">
+        <link rel="stylesheet" href="css/animate.css">
+        <link rel="stylesheet" href="css/footer.css">
+        <link rel="stylesheet" href="css/estilosVistas.css">
+        <link rel="stylesheet" href="css/style.css">
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
+        </style>
+        <!--ESTILOS DE APLICACIÓN-->
+        <script type="text/javascript">
+         var url = window.location.pathname;
+         var filename = url.substring(url.lastIndexOf('/') + 1);
+          if (localStorage.login == "true" && filename == 'index.html') {
+             window.location.href = "inicio.html";
+         } else if (localStorage.login == null) {
+             window.location.href = "index.html";
+         } else if (localStorage.login == "false" && filename != 'index.html') {
+             window.location.href = "index.html";
+         }
+         </script>
+
+        <title>RENTAApp</title>
+    </head>
+    <body>
+     <header>
+          <div class="menu_bar">
+            <a href="#" class="bt-menu"><img src="img/logo.png" width="10%"><span><i class="fas fa-bars fa-1x"></i></span></a>
+          </div>
+
+          <nav>
+            <ul style="background:white;">
+             <li></li>
+            </ul>
+            <ul class="contenedorAccesos">
+              <li><a href="#"></a></li>
+              <li><a class="btnInicio"><i class="fas fa-home"></i>Tablero</a></li>
+              <li><a  class="btnEntregasPendientes"><i class="fas fa-boxes"></i>Mis Entregas</a></li>
+              <li><a  class="btnEntregasFinalizadas"><i class="fas fa-handshake"></i>Finalizadas</a></li>
+             
+            </ul>
+          </nav>
+        </header>
+        
+         <div class="container">
+          <a href="javascript: history.go(-1)"><button class="btn btn-circle">
+            <div class="ripple-container">
+                <span class="ripple-effect"></span>
+            </div>
+          <i class="fas fa-arrow-left"></i>
+        </button></a>
+        </div>
+       
+         <div class="contenedorVista">
+
+         <center><h3 id="titulos-container">Detalle Entrega</h3></center>
+         <h3>Ubicacion actual:</h3>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <strong>Latitud: </strong> <p id="latitud"></p>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <strong>Longitud: </strong> <p id="longitud"></p>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <strong>Direccion: </strong> <p id="direccion"></p>
+                    </div>
+         <table>
+            <thead>
+              <tr>
+                <th scope="col">Serie</th>
+                <th scope="col">Folio</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Total</th>
+                <th scope="col">Inicio</th>
+                <th scope="col">Final</th>
+                <th scope="col">Actualizar</th>
+              </tr>
+            </thead>
+            <tbody id="tableFacturasDelivery">
+              
+            </tbody>
+          </table>
+
+        </div>
+   
+          <!--LIBRERIAS DE JAVASCRIPT PARA FUNCIONAMIENTO DE APLICACIÓN-->
+        <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+
+        <script type="text/javascript" src="js/index.js"></script>
+       
+        <script type="text/javascript" src="js/api.js"></script>
+        <script type="text/javascript" src="js/ubicacion.js"></script>
+        <script type="text/javascript" src="js/all.min.js"></script>
+        <script type="text/javascript" src="js/sweetalert.min.js"></script>
+        <script type="text/javascript">
+          $(document).ready(function(){
+            var json = localStorage.detalleEntrega;
+            var detalle = JSON.parse(json);
+             $("#tableFacturasDelivery").html("");
+                  $("#fila").html("");
+                  for (var x=0; x < detalle.length; x++) {
+
+                    if (detalle[x]["horaInicio"] == "00:00:00") {
+
+                       var fila = `<tr id="fila"><td data-label="Serie">`+detalle[x]["serie"]+`</td><td data-label="Folio">`+detalle[x]["folio"]+`</td><td data-label="Cliente">`+detalle[x]["nombreCliente"]+`</td><td data-label="Total">$ `+detalle[x]["total"]+`</td><td data-label="Inicio"><input type='time' value='08:00:00' max='23:59:00' min='07:00:00' step='1' class='form-control input-lg' name="horaInicio`+detalle[x]["id"]+`" id="horaInicio`+detalle[x]["id"]+`"></td><td data-label="Final"><input type='time' value='08:00:00' max='23:59:00' min='07:00:00' step='1' class='form-control input-lg' name="horaFinal`+detalle[x]["id"]+`" id="horaFinal`+detalle[x]["id"]+`"></td><td data-label="Actualizar"><button class="btn-view btn-rectangle-view btn-raised btnUpdateDelivery" id="`+detalle[x]["id"]+`" idFactura="`+detalle[x]["idFactura"]+`" idEntrega="`+detalle[x]["idEntrega"]+`">
+            <div class="ripple-container">
+                <span class="ripple-effect"></span>
+            </div>
+          Actualizar
+        </button></td></tr>`;
+
+                    }else{
+                       var fila = `<tr id="fila"><td data-label="Serie">`+detalle[x]["serie"]+`</td><td data-label="Folio">`+detalle[x]["folio"]+`</td><td data-label="Cliente">`+detalle[x]["nombreCliente"]+`</td><td data-label="Total">$ `+detalle[x]["total"]+`</td><td data-label="Inicio">`+detalle[x]["horaInicio"]+`</td><td data-label="Final">`+detalle[x]["horaTermino"]+`</td><td data-label="Actualizar"></td></tr>`;
+                    }
+
+                   
+                      $("#tableFacturasDelivery").append(fila);
+                   }
+              });
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_dlGznsov-uJDQUmmsHIR_vsA103iiLc&signed_in=true&libraries=places"></script>
+    </body>
+</html>
