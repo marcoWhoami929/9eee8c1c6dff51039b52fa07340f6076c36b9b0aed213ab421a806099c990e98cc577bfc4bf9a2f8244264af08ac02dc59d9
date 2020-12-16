@@ -1,6 +1,6 @@
 $(document).ready(function() {
  
-  var url = "https://192.168.1.245/matrizV1/api.php?callback=?";
+  var url = "http://192.168.1.245/matrizV1/api.php?callback=?";
   //192.168.1.212
   //var url = "http://192.168.1.212/matrizV1/api.php?callback=?";
   
@@ -44,7 +44,7 @@ $(document).ready(function() {
             });
 
           } else if (data == "fail") {
-            swal("Algo Salio Mal", "verifiacr usuario", "error");
+            swal("Algo Salio Mal", "verificar usuario", "error");
             //alert("Error verifique su correo o contraseña");
             $("#btnAcceder").html('Acceder');
           }
@@ -90,7 +90,7 @@ $('body').on('click', '.contenedorAccesos a', function(){
             })
             .then((willDelete) => {
               if (willDelete) {
-                //window.location.href = "inicio.html";
+                
                  $(".pendientes").html("<center><h3 id='subtitulos'>Entregas Pendientes</h3></center>");
               }
             });
@@ -151,12 +151,13 @@ $('body').on('click', '.contenedorAccesos a', function(){
 $("#tableDetailDelivery").on("click", ".btnDetailDelivery", function(){
 
     var idEntrega = $(this).attr("id");
+    localStorage.setItem("idEntrega",idEntrega);
 
      var dataString = "idEntregaDetalle="+idEntrega+"&detalleEntregaVista=";
 
        $.ajax({
           type: "POST",
-          url: "https://192.168.1.245/matrizV1/api.php?callback=?",
+          url: "http://192.168.1.245/matrizV1/api.php?callback=?",
           data: dataString,
           crossDomain: true,
           cache: false,
@@ -167,6 +168,7 @@ $("#tableDetailDelivery").on("click", ".btnDetailDelivery", function(){
           },
           success: function(data) {
             if (data != "failed") {
+              
               localStorage.detalleEntrega = data;
               window.location.href ="detalleEntrega.html";
               
@@ -200,7 +202,7 @@ $("#tableDetailDeliveryFinish").on("click", ".btnDetailDelivery", function(){
 
        $.ajax({
           type: "POST",
-          url: "https://192.168.1.245/matrizV1/api.php?callback=?",
+          url: "http://192.168.1.245/matrizV1/api.php?callback=?",
           data: dataString,
           crossDomain: true,
           cache: false,
@@ -239,44 +241,63 @@ $("#tableDetailDeliveryFinish").on("click", ".btnDetailDelivery", function(){
 $("#tableFacturasDelivery").on("click", ".btnUpdateDelivery", function(){
     $direccion = document.querySelector("#direccion");
 
-    funcionInit();
-
-
-        var idMovimiento = $(this).attr("id");
+    var idMovimiento = $(this).attr("id");
+    
     var idFactura = $(this).attr("idFactura");
+    var arregloFactura = idFactura.split(",");
+    var arregloFacturas = arregloFactura;
+
+    
     var idEntregaFactura = $(this).attr("idEntrega");
     var horaInicio = $("#horaInicio"+idMovimiento+"").val();
     var horaFinal = $("#horaFinal"+idMovimiento+"").val();
 
+    
+    $.when(funcionInit()).then(functionSend(idMovimiento,arregloFacturas,idEntregaFactura,horaInicio,horaFinal));
+    
+
+    function functionSend(idMovimiento,arregloFacturas,idEntregaFactura,horaInicio,horaFinal){
+   
     var latitud = localStorage.getItem("latitudOperador");
     var longitud = localStorage.getItem("longitudOperador");
     var ubicacion = localStorage.getItem("autocomplete"); 
 
-    
-
-     var dataString = "idFactura="+idFactura+"&idEntregaFactura="+idEntregaFactura+ "&idMovimiento="+idMovimiento+"&horaInicio="+horaInicio+"&horaFinal="+horaFinal+"&latitud="+latitud+"&longitud="+longitud+"&ubicacion="+ubicacion+"&actualizarHorarioEntrega=";
+  
+     var dataString = "idFactura="+arregloFacturas+"&idEntregaFactura="+idEntregaFactura+ "&idMovimiento="+idMovimiento+"&horaInicio="+horaInicio+"&horaFinal="+horaFinal+"&latitud="+latitud+"&longitud="+longitud+"&ubicacion="+ubicacion+"&actualizarHorarioEntrega=";
 
        $.ajax({
           type: "POST",
-          url: "https://192.168.1.245/matrizV1/api.php?callback=?",
+          url: "http://192.168.1.245/matrizV1/api.php?callback=?",
           data: dataString,
           crossDomain: true,
           cache: false,
 
           beforeSend: function() {
+
+            document.getElementById("pageLoadEdit").style.display = "";
+
+              $("#pageLoadEdit").html("<div class='sk-chase'><div class='sk-chase-dot'></div><div class='sk-chase-dot'></div><div class='sk-chase-dot'></div><div class='sk-chase-dot'></div><div class='sk-chase-dot'></div><div class='sk-chase-dot'></div></div><div class='spinner'></div>");
+              $(".spinner").show();
             
           },
           success: function(data) {
             if (data != "failed") {
+              
+
               var dataString = "idEntregaDetalle="+idEntregaFactura+"&detalleEntregaVista=";
                 $.ajax({
                 type: "POST",
-                url: "https://192.168.1.245/matrizV1/api.php?callback=?",
+                url: "http://192.168.1.245/matrizV1/api.php?callback=?",
                 data: dataString,
                 crossDomain: true,
                 cache: false,
 
                 beforeSend: function() {
+
+                  document.getElementById("pageLoadEdit").style.display = "";
+
+                  $("#pageLoadEdit").html("<div class='sk-chase'><div class='sk-chase-dot'></div><div class='sk-chase-dot'></div><div class='sk-chase-dot'></div><div class='sk-chase-dot'></div><div class='sk-chase-dot'></div><div class='sk-chase-dot'></div></div><div class='spinner'></div>");
+                  $(".spinner").show();
                  
                 },
                 success: function(data) {
@@ -295,6 +316,7 @@ $("#tableFacturasDelivery").on("click", ".btnUpdateDelivery", function(){
               
             }else{
               
+             
               
               swal({
               
@@ -312,10 +334,9 @@ $("#tableFacturasDelivery").on("click", ".btnUpdateDelivery", function(){
             }
           }
         });
-
-
-    /*
-    
-    */
+        
+        
+    }
+ 
 
 });

@@ -43,7 +43,7 @@
   	const opcionesDeSolicitud = {
   		enableHighAccuracy: true, // Alta precisión
   		maximumAge: 0, // No queremos caché
-  		timeout: 10000 // Esperar solo 5 segundos
+  		timeout: 40000 // Esperar solo 5 segundos
   	};
 
   	$latitud.innerText = "Cargando...";

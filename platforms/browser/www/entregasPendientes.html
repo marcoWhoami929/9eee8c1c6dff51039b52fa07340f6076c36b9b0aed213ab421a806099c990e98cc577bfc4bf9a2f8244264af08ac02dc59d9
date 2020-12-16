@@ -61,8 +61,10 @@
         </button></a>
         </div>
        
-         <div class="contenedorVista">
-
+         <div class="contenedorVista" id="contenedorVista">
+          <center><div class="contenedor-box pageLoad" id="pageLoad"  style="display: none;">
+            
+          </div></center>
          <center><h3 id="titulos-container">Entregas Pendientes</h3></center>
          <table>
             <thead>
@@ -90,8 +92,41 @@
         <script type="text/javascript" src="js/api.js"></script>
         <script type="text/javascript" src="js/all.min.js"></script>
         <script type="text/javascript" src="js/sweetalert.min.js"></script>
+      
+        <script type="text/javascript" src="js/pulltorefresh.js"></script>
         <script type="text/javascript">
+            PullToRefresh.init({
+            mainElement: '#contenedorVista',
+            onRefresh: function() { 
+              document.getElementById("pageLoad").style.display = "";
+
+              $(".pageLoad").html("<div class='sk-chase'><div class='sk-chase-dot'></div><div class='sk-chase-dot'></div><div class='sk-chase-dot'></div><div class='sk-chase-dot'></div><div class='sk-chase-dot'></div><div class='sk-chase-dot'></div></div><div class='spinner'></div>");
+              $(".spinner").show();
+              var idAgente = localStorage.getItem("idAgente");
+              var dataString = "idAgente="+idAgente+"&listaEntregasPendientes=";
+                    $.ajax({
+                    type: "POST",
+                    url: "http://192.168.1.245/matrizV1/api.php?callback=?",
+                    data: dataString,
+                    crossDomain: true,
+                    cache: false,
+                    success: function(data) {
+                        if (data != "failed") {
+                        localStorage.listaEntregasPendientes = data;
+                        var url = window.location.pathname;
+                        var filename = url.substring(url.lastIndexOf('/') + 1);
+                        
+                        window.location.href = ""+filename+"";
+                    
+                        }
+                    }
+                    })
+
+
+            }
+          });
           $(document).ready(function(){
+        
             var json = localStorage.listaEntregasPendientes;
             var detalle = JSON.parse(json);
              $("#tableDetailDelivery").html("");
