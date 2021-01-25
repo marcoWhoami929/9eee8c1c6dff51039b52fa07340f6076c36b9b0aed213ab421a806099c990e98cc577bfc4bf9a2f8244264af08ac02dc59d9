@@ -1,6 +1,6 @@
 $(document).ready(function() {
  
-  var url = "http://192.168.1.245/matrizV1/api.php?callback=?";
+  var url = "http://dkmatrizz.ddns.net/api.php?callback=?";
   //192.168.1.212
   //var url = "http://192.168.1.212/matrizV1/api.php?callback=?";
   
