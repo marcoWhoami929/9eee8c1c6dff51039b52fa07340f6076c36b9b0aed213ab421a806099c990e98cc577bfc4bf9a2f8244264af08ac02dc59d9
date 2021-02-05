@@ -1,6 +1,7 @@
+
 $(document).ready(function() {
  
-  var url = "http://dkmatrizz.ddns.net/api.php?callback=?";
+  var url = "http://192.168.1.245/matrizServer/api.php?callback=?";
   //192.168.1.212
   //var url = "http://192.168.1.212/matrizV1/api.php?callback=?";
   
@@ -157,7 +158,7 @@ $("#tableDetailDelivery").on("click", ".btnDetailDelivery", function(){
 
        $.ajax({
           type: "POST",
-          url: "http://192.168.1.245/matrizV1/api.php?callback=?",
+          url: "http://192.168.1.245/matrizServer/api.php?callback=?",
           data: dataString,
           crossDomain: true,
           cache: false,
@@ -202,7 +203,7 @@ $("#tableDetailDeliveryFinish").on("click", ".btnDetailDelivery", function(){
 
        $.ajax({
           type: "POST",
-          url: "http://192.168.1.245/matrizV1/api.php?callback=?",
+          url: "http://192.168.1.245/matrizServer/api.php?callback=?",
           data: dataString,
           crossDomain: true,
           cache: false,
@@ -267,7 +268,7 @@ $("#tableFacturasDelivery").on("click", ".btnUpdateDelivery", function(){
 
        $.ajax({
           type: "POST",
-          url: "http://192.168.1.245/matrizV1/api.php?callback=?",
+          url: "http://192.168.1.245/matrizServer/api.php?callback=?",
           data: dataString,
           crossDomain: true,
           cache: false,
@@ -287,7 +288,7 @@ $("#tableFacturasDelivery").on("click", ".btnUpdateDelivery", function(){
               var dataString = "idEntregaDetalle="+idEntregaFactura+"&detalleEntregaVista=";
                 $.ajax({
                 type: "POST",
-                url: "http://192.168.1.245/matrizV1/api.php?callback=?",
+                url: "http://192.168.1.245/matrizServer/api.php?callback=?",
                 data: dataString,
                 crossDomain: true,
                 cache: false,

@@ -1,6 +1,6 @@
 {
-  "name": "rentabilidadApp",
-  "short_name": "rentabilidadApp",
+  "name": "RENTAApp",
+  "short_name": "RENTAApp",
   "description": "Description of your app from template",
   "start_url": "index.html",
   "scope": "index.html",

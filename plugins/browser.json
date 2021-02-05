@@ -7,12 +7,6 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "com.rentabilidad.app"
-    },
-    "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "com.rentabilidad.app"
-    },
     "cordova-plugin-geolocation": {
       "PACKAGE_NAME": "com.rentabilidad.app"
     },
@@ -23,6 +17,12 @@
       "PACKAGE_NAME": "com.rentabilidad.app"
     },
     "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "com.rentabilidad.app"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.rentabilidad.app"
+    },
+    "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.rentabilidad.app"
     }
   },
